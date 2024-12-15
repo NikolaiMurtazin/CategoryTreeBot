@@ -25,8 +25,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://category-db:5432/category_tree_bot
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      TELEGRAM_BOT_TOKEN: 7349755387:AAHIZF7nX-CCEgnW3Yg6CcwZcq-hkMLERkU
-      TELEGRAM_BOT_USERNAME: CategoryTreeTest_Bot
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_BOT_USERNAME: ${TELEGRAM_BOT_USERNAME}
     ports:
       - "8080:8080"
 
