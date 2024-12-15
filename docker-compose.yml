@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16.1
+    container_name: category_tree_db
+    environment:
+      POSTGRES_DB: category_tree_bot
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -q -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      timeout: 5s
+      interval: 5s
+      retries: 10
+
+  category-tree-bot:
+    build: .
+    container_name: category_tree_bot_app
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://category-db:5432/category_tree_bot
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      TELEGRAM_BOT_TOKEN: 7349755387:AAHIZF7nX-CCEgnW3Yg6CcwZcq-hkMLERkU
+      TELEGRAM_BOT_USERNAME: CategoryTreeTest_Bot
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:
